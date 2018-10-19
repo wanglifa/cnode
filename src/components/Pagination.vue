@@ -3,7 +3,7 @@
         <button @click="changeBtn">首页</button>
         <button @click="changeBtn">上一页</button>
         <button v-if="toggle">...</button>
-        <button v-for="page in pages" 
+        <button v-for="page in pages"
         :class="[{currentPage:page=== currentPage},'pagebtn']"
         @click="changeBtn(page)"
         >{{page}}</button>
@@ -25,21 +25,23 @@ export default {
         changeBtn(page){
             if(typeof page !== 'number'){
                 let target = page.target
-                switch(target.innerText){
+                if(target){
+                  switch(target.innerText){
                     case '上一页':
-                        $('button.currentPage').prev().click()
-                        break;
+                      $('button.currentPage').prev().click()
+                      break;
                     case '下一页':
-                        $('button.currentPage').next().click()
-                        break;
+                      $('button.currentPage').next().click()
+                      break;
                     case '首页':
-                        this.pages=[1,2,3,4,5,'...']
-                        this.currentPage = 1
-                        break;
-                    default: 
-                        break    
+                      this.pages=[1,2,3,4,5,'...']
+                      this.changeBtn(1)
+                      break;
+                    default:
+                      break
+                  }
                 }
-                return
+              return
             }
             this.currentPage = page;
             if(page === this.pages[4]){
